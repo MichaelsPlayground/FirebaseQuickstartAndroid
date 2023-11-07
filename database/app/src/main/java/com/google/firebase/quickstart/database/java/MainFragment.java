@@ -46,7 +46,7 @@ public class MainFragment extends Fragment implements MenuProvider {
         menuHost.addMenuProvider(this);
 
         // Create the adapter that will return a fragment for each section
-        FragmentStateAdapter mPagerAdapter = new FragmentStateAdapter(getParentFragmentManager(),
+        FragmentStateAdapter mPagerAdapter = new FragmentStateAdapter(getChildFragmentManager(),
                 getViewLifecycleOwner().getLifecycle()) {
             private final Fragment[] mFragments = new Fragment[]{
                     new RecentPostsFragment(),
@@ -65,6 +65,28 @@ public class MainFragment extends Fragment implements MenuProvider {
                 return mFragments.length;
             }
         };
+
+        // todo This was the original code that was producing an IllegalStateException when pressing the "back" button
+        FragmentStateAdapter mPagerAdapter2 = new FragmentStateAdapter(getParentFragmentManager(),
+                getViewLifecycleOwner().getLifecycle()) {
+            private final Fragment[] mFragments = new Fragment[]{
+                    new RecentPostsFragment(),
+                    new MyPostsFragment(),
+                    new MyTopPostsFragment(),
+            };
+
+            @NonNull
+            @Override
+            public Fragment createFragment(int position) {
+                return mFragments[position];
+            }
+
+            @Override
+            public int getItemCount() {
+                return mFragments.length;
+            }
+        };
+
         // Set up the ViewPager with the sections adapter.
         binding.container.setAdapter(mPagerAdapter);
         String[] mFragmentNames = new String[]{
