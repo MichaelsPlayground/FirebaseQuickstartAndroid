@@ -15,7 +15,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.google.firebase.quickstart.firebasestorage"
+        applicationId = "de.androidcrypto.firebase.quickstart.firebasestorage"
         minSdk = 19
         targetSdk = 34
         versionCode = 1
